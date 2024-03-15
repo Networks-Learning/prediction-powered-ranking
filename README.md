@@ -19,11 +19,11 @@ pip install -r requirements.txt
 ```bash
 python3 llm-ranking.py <file_human> <file_llm> <alpha> <ignore_ties> <n> <N> 
 ```
-where
+Parameters
 
 - ` file_human ` : json file of human-annotated comparison data.
 
-- ` file_human ` : json file of LLM-annotated comparison data.
+- ` file_llm ` : json file of LLM-annotated comparison data.
 
 - `alpha` : error probability (real value between 0 and 1).
 
@@ -34,7 +34,7 @@ Optional parameters:
 - `n` : Default - number of comparisons in `file_human`. If specified, number of comparisons to subsample from ` file_human`.
 
 - `N` : Default - number of comparisons in `file_llm`. If specified, number of comparisons to subsample from ` file_llm `.
-\
+
 
 ### Datasets
 
