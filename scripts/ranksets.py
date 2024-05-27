@@ -10,11 +10,11 @@ def find_ranksets(k, thetahat, Sigma, alpha):
     k : int
         number of models
     thetahat : numpy.ndarray
-        prediction-powered estimate of win probability of each model
+        estimate of win probability of each model
     Sigma : numpy.ndarray
         sample covariance of thetahat
     alpha : float
-        error probability
+        desired error rate (must be between 0 and 1)
 
     Returns
     -------
@@ -25,11 +25,15 @@ def find_ranksets(k, thetahat, Sigma, alpha):
     lhat = np.ones((k,1))
     uhat = np.ones((k,1))*k
     
+    assert alpha>0 and alpha<1, 'alpha must be between 0 and 1'
+    
     for m1 in range(k):
         for m2 in range(k):
             if m1 == m2:
                 continue
-            d = abs(thetahat[m1] - thetahat[m2])/np.sqrt(2) - np.sqrt((Sigma[m1][m1] + Sigma[m2][m2] - 2*Sigma[m1][m2])*(stats.chi2.ppf(1-alpha,k)/(2)))
+            d = abs(thetahat[m1] - thetahat[m2])/np.sqrt(2) - \
+            np.sqrt((Sigma[m1][m1] + Sigma[m2][m2] - 2*Sigma[m1][m2])*\
+                    (stats.chi2.ppf(1-alpha,k)/(2)))
             if d > 0 and thetahat[m1] < thetahat[m2]:
                 lhat[m1] += 1
             elif d > 0 and thetahat[m1] > thetahat[m2]:
