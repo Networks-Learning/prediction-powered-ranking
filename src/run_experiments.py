@@ -1,6 +1,6 @@
-import data_process
-import estimate
-import ranksets
+from src import data_process
+from src import estimate
+from src import ranksets
 import json
 import os
 
@@ -184,7 +184,10 @@ def run_experiments(seeds,
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
     for i in range(iterations):
-        with open(output_directory+str(i)+'.json','a') as f:
+        filepath=output_directory+str(i)+'.json'
+        if os.path.exists(filepath):
+            os.remove(filepath)
+        with open(filepath,'a') as f:
             try:
                 result=run_experiment(
                     seeds[i],human_file,llm_files,judges=judges,models=models,

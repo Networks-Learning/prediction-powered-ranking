@@ -2,7 +2,7 @@ import json
 import random
 import os
 import sys
-import run_experiments as run_experiments
+from src import run_experiments as run_experiments
 
 
 def check_input(configs):
